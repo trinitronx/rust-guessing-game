@@ -16,7 +16,6 @@ fn main() {
             .read_line(&mut guess)
             .expect("Failed to read line");
 
-        println!("You guessed: {}", guess.trim());
 
         let guess: i32 = match guess.trim().parse() {
             Ok(num) => num,
@@ -30,6 +29,8 @@ fn main() {
                 continue;
             }
         };
+
+        println!("You guessed: {guess}");
 
         match guess.cmp(&secret_number) {
             Ordering::Less => println!("Too small!"),
