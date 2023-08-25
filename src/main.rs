@@ -16,12 +16,20 @@ fn main() {
             .read_line(&mut guess)
             .expect("Failed to read line");
 
-        let guess: u32 = match guess.trim().parse() {
-            Ok(num) => num,
-            Err(_) => continue,
-        };
+        println!("You guessed: {}", guess.trim());
 
-        println!("You guessed: {guess}");
+        let guess: i32 = match guess.trim().parse() {
+            Ok(num) => num,
+            Err(result) => {
+                match guess.trim() {
+                    "q" | "quit" => std::process::exit(0),
+                    _ => {
+                        println!("Parsing error {:#?} encountered while processing input.\nAre you trying to quit? Hint: try 'q' or 'quit'\nGot: '{guess:#?}'", result.kind())
+                    }
+                };
+                continue;
+            }
+        };
 
         match guess.cmp(&secret_number) {
             Ordering::Less => println!("Too small!"),
