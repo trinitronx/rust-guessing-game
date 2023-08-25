@@ -16,12 +16,14 @@ fn main() {
             .read_line(&mut guess)
             .expect("Failed to read line");
 
-
         let guess: i32 = match guess.trim().parse() {
             Ok(num) => num,
             Err(result) => {
                 match guess.trim() {
-                    "q" | "quit" => std::process::exit(0),
+                    "q" | "quit" => {
+                        println!("Bye!");
+                        std::process::exit(0);
+                    }
                     _ => {
                         println!("Parsing error {:#?} encountered while processing input.\nAre you trying to quit? Hint: try 'q' or 'quit'\nGot: '{guess:#?}'", result.kind())
                     }
